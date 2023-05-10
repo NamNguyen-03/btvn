@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+class thisinh{
+	private :
+		char hoten[50];
+		char mathisinh[50];
+		float toan;
+		float li;
+		float hoa;
+	public :
+		void nhap();
+		void xuat();
+		float diemTB();
+};
+
+void thisinh::nhap(){
+	cout<<"Nhap ho ten thi sinh : ";
+	cin.ignore();
+	cin.getline(hoten,sizeof(hoten));
+	cout<<"Nhap ma thi sinh : ";
+	cin.getline(mathisinh,sizeof(mathisinh));
+	do{
+	cout<<"Nhap diem toan : ";
+	cin>>toan;
+	}while(toan<0||toan>10);
+	do{
+	cout<<"Nhap diem li : ";
+	cin>>li;
+	}while(li<0||li>10);
+	do{
+	cout<<"Nhap diem hoa : ";
+	cin>>hoa;
+	}while(hoa<0||hoa>10);
+}
+void quydoi(float a){
+	if (a>=8.5) cout<<"A";
+	else if  (a<8.5&&a>=7) cout<<"B";
+	else if (a<=4&&a<7) cout<<"C";
+	else cout<<"D";
+}
+void thisinh::xuat(){
+	cout<<"Ho ten : "<<hoten<<endl;
+	cout<<"Ma thi sinh : "<<mathisinh<<endl;
+	cout<<"Diem toan : ";quydoi(toan);
+	cout<<"\nDiem li : ";quydoi(li);
+	cout<<"\nDiem hoa : ";quydoi(hoa);
+}
+float thisinh::diemTB(){
+	float tb ;
+	tb = (toan + li + hoa )/3;
+	return tb;
+}
+void Sapxep(thisinh arr[],int n){
+	for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i].diemTB() < arr[j].diemTB()) {
+                swap(arr[i],arr[j]);
+            }
+        }
+    }
+}
+
+int main (){
+	int n;
+	cout<<"Nhap so thi sinh : ";
+	cin>>n;
+	thisinh s[n];
+	for(int i=0; i<n ; i++ ){
+		cout<<"Thi sinh thu "<<i+1<<endl;
+		s[i].nhap();
+	}
+	Sapxep(s,n);
+	for(int i=0; i<n ; i++ ){
+		cout<<"Thi sinh thu "<<i+1<<endl;
+		s[i].xuat();
+		cout<<"\nDiem Tb : "<<s[i].diemTB()<<endl;
+	}
+}
